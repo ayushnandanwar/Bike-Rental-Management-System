@@ -1,0 +1,41 @@
+.btn{
+    padding: 8px 20px;
+    font-size: 1.3rem;
+    border: none;
+    box-shadow: 2px 4px 12px black;
+    transition: all .3s;
+    text-decoration: none;
+    cursor: pointer;
+    border-radius: 4px;
+}
+a{
+    text-decoration: none;
+    color: white;
+}
+.btn-container{
+    display: flex;
+    flex-wrap: nowrap;
+    padding: 5px;
+}
+.btn-container > *{
+    margin: 0 4px;
+}
+.btn:hover{
+    opacity: .7;
+}
+
+.btn-submit{
+    background-color: blue;
+    color: white;
+}
+
+.btn-confirm{
+    background-color: greenyellow;
+    font-weight: bold;
+    color: black;
+}
+.btn-cancel{
+    background-color: red;
+    color: white;
+    font-size: .9rem;
+}

@@ -1,0 +1,52 @@
+doctype html
+html(lang="en")
+    head
+        meta(charset="UTF-8")
+        meta(http-equiv="X-UA-Compatible", content="IE=edge")
+        meta(name="viewport", content="width=device-width, initial-scale=1.0")
+        title Bike Rental System
+        style 
+            include ../public/css/style.css 
+            include ../public/util.css
+    body  
+        header 
+            h1 Anup Bike Rental Services
+            a.btn.btn-confirm.admin(href="/admin") Admin 
+        if error == true 
+            div.err= message
+        main 
+            div.container
+                h1 Book your bike
+                form.form(action="/" method="post")
+                    div
+                        label(for="cust_name") Customer Name
+                        input(type="text" name="cust_name" required) 
+                    div
+                        label(for="mobile") Mobile
+                        input(type="text" name="mobile" title="Error Number should be of 10 digits" pattern="[1-9]{1}[0-9]{9}")
+                    div
+                        label(for="aadhar") Aadhar Number
+                        input(type="number" name="aadhar" required) 
+                    div
+                        label(for="license_no") License Number
+                        input(type="number" name="license_no" required) 
+                    div
+                        label(for="address") Address
+                        input(type="text" name="address" required) 
+                    div
+                        label(for="bike_no")
+                        select(name="bike_no")
+                            option() Select Bike
+                                each bike in bikes 
+                                    option(value=`${bike.bike_no}`)= `${bike.bike_name} (Rs.${bike.rent}/day) ${bike.color}`  
+                    div
+                        label(for="from_date") From Date and Time
+                        input(type="date" name="from_date" onchange="updateToDate()" id="from_date" required) 
+                    div
+                        label(for="to_date") To Date and Time
+                        input(type="date" name="to_date" id="to_date" required) 
+                    div
+                        label(for="")
+                        input(type="submit" class="btn btn-submit" required value="Book Bike")
+            script  
+                include ../public/script.js

@@ -1,0 +1,28 @@
+CREATE TABLE `bikes` (
+  `bike_no` int NOT NULL AUTO_INCREMENT,
+  `bike_name` varchar(45) NOT NULL,
+  `color` varchar(45) NOT NULL,
+  `rent` decimal(10,0) NOT NULL,
+  PRIMARY KEY (`bike_no`)
+);
+
+CREATE TABLE `customers` (
+  `license_no` decimal(9,0) NOT NULL,
+  `name` varchar(45) NOT NULL,
+  `mobile` bigint NOT NULL,
+  `address` longtext NOT NULL,
+  `aadhar` decimal(12,0) NOT NULL,
+  PRIMARY KEY (`license_no`)
+);
+
+CREATE TABLE `BikeRentalSystem`.`bookings` (
+  `from_date` date NOT NULL,
+  `fare` decimal(10,0) NOT NULL,
+  `license_no` decimal(9,0) NOT NULL,
+  `bike_no` int NOT NULL,
+  `to_date` date NOT NULL,
+  KEY `license_no_idx` (`license_no`),
+  KEY `bike_no_idx` (`bike_no`),
+  CONSTRAINT `bike_no` FOREIGN KEY (`bike_no`) REFERENCES `bikes` (`bike_no`),
+  CONSTRAINT `license_no` FOREIGN KEY (`license_no`) REFERENCES `customers` (`license_no`)
+);

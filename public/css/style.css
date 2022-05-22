@@ -1,0 +1,56 @@
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+header{
+    height: 80px;
+    background-color: rgb(104, 235, 43);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.5rem;
+    font-style: italic;
+}
+.admin{
+    position: absolute;
+    right: 20px;
+    top: 22px;
+}
+.container{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.form{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 10px 30px;
+    width: 500px;
+    font-size: 1.2rem;
+}
+.form div{
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+}
+.form div > *{
+    margin: 3px 0;
+    width: 100%;
+}
+.form div > input,.form div > select{
+    padding: 5px 10px;
+    font-size: 1.1rem;
+}
+
+th, td {
+    padding: 5px 10px;
+    text-align: left;
+    /* border: none; */
+    border: 2px solid black;
+    font-size: 1.3rem;
+  }
+

@@ -1,0 +1,72 @@
+doctype html
+html(lang="en")
+    head
+        meta(charset="UTF-8")
+        meta(http-equiv="X-UA-Compatible", content="IE=edge")
+        meta(name="viewport", content="width=device-width, initial-scale=1.0")
+        title Admin | Bike Rental System
+        style 
+            include ../public/css/style.css 
+            include ../public/util.css
+    body  
+        header 
+            h1 Anup Bike Rental Services Administrator
+            a.btn.btn-confirm.admin(href="/") Back to Form 
+        if error == true 
+            div.err= message
+        main 
+            .container 
+                h1 Your Bikes
+                table 
+                    tr
+                        th Sr. No
+                        th Bike No 
+                        th Bike Name 
+                        th Rent 
+                        th Delete 
+                    each bike,i in bikes 
+                        tr
+                            td=(i+1)
+                            td= bike.bike_no 
+                            td= bike.bike_name 
+                            td= bike.rent 
+                            td
+                                form(action=`/delete/${bike.bike_no}`, method="post") 
+                                    button(type="submit" class="btn btn-cancel") Delete Bike 
+            .container 
+                h1 Your Customers
+                table 
+                    tr
+                        th Sr. No
+                        th License No 
+                        th Customer Name 
+                        th Mobile
+                        th Aadhar 
+                    each cus,i in customers 
+                        tr
+                            td=(i+1)
+                            td= cus.license_no
+                            td= cus.name 
+                            td= cus.mobile
+                            td= cus.aadhar 
+
+            div.container
+                h1 Add Bike
+                form.form(action=`/bike` method="post")
+                    div
+                        label(for="cust_name") Bike Name
+                        input(type="text" name="bike_name" required) 
+                    div
+                        label(for="mobile") Color
+                        input(type="text" name="color" required)
+                    div
+                        label(for="aadhar") Bike No
+                        input(type="number" name="bike_no" required)  
+                    div
+                        label(for="aadhar") Rent per day
+                        input(type="number" name="rent" required)  
+                    div
+                        label(for="")
+                        input(type="submit" class="btn btn-submit" required value="Add Bike")
+            script  
+                include ../public/script.js

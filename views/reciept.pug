@@ -1,0 +1,70 @@
+doctype html
+html(lang="en")
+    head
+        meta(charset="UTF-8")
+        meta(http-equiv="X-UA-Compatible", content="IE=edge")
+        meta(name="viewport", content="width=device-width, initial-scale=1.0")
+        title Bike Rental System
+        style 
+            include ../public/css/style.css 
+            include ../public/util.css
+    body 
+        header 
+            h1 Anup Bike Rental Services
+        main 
+            div.container
+                h1 Thanks for using Anup Bike Rental System
+                h2 Bike Booked Successfully
+                table 
+                    tr 
+                        td Name
+                        td :
+                        td= name
+                    tr 
+                    tr 
+                        td License No 
+                        td :
+                        td= license_no
+                    tr
+                    tr 
+                        td Mobile No 
+                        td :
+                        td= mobile
+                    tr
+                    tr 
+                        td Aadhar No 
+                        td :
+                        td= aadhar
+                    tr
+                    tr 
+                        td Booking Date 
+                        td :
+                        td= booking_date
+                    tr
+                    tr 
+                        td From Date  
+                        td :
+                        td= from_date
+                    tr
+                    tr 
+                        td To Date 
+                        td :
+                        td= to_date
+                    tr
+                    tr 
+                        td Total Days
+                        td :
+                        td= days
+                    tr
+                    tr 
+                        td Fare
+                        td :
+                        td= `Rs. ${fare}/-`
+                    tr
+                div.btn-container
+                    button.btn.btn-confirm(href="" class="" onclick="window.print()") Print Reciept
+                    button.btn.btn-cancel(href="" class="")
+                        a(href="/")  Book Again 
+
+            script  
+                include ../public/script.js
