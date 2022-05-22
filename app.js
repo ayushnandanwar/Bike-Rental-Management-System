@@ -28,29 +28,24 @@ app.post('/',(req,res)=>{
         let bike_no = req.body.bike_no;
         let from_date = new Date(req.body.from_date);
         let to_date = new Date(req.body.to_date);
-        let month = to_date.getMonth() - from_date.getMonth();
-        let days = to_date.getDate() - from_date.getDate() + 1;   // calculating days
-        if(month >= 1) days += 30;
+        let days = to_date.getTime() - from_date.getTime();
+        days = Math.ceil(days / (1000 * 3600 * 24)) + 1;
         from_date = from_date.toISOString().split("T")[0];
         to_date = to_date.toISOString().split("T")[0];
         
-        connection.query(`select * from bikes where bike_no = ${bike_no}`,(err,row,fields)=>{
+        connection.query(`select * from bikes where bike_no = ${bike_no}`,(err,row)=>{
             let rent = row[0].rent;
             let fare = rent*days;
             let license_no = req.body.license_no;
-            let bookingsql = `insert into bookings values('${from_date}',${fare},${license_no},${bike_no},'${to_date}');`
+            let bookingsql = `insert into bookings  (from_date,
+            fare,
+            license_no,
+            bike_no,
+            to_date) values('${from_date}',${fare},${license_no},${bike_no},'${to_date}');`
             let customersql = `insert into customers values(${license_no},'${req.body.cust_name}',${req.body.mobile},'${req.body.address}',${req.body.aadhar})`
-            connection.query(customersql,(err1,row,fields)=>{
-                if(err1) {
-                    return connection.query("select * from bikes",(err,row,fields)=>{
-                        if(err) return res.send("err")
-                        res.render('booking-form',{
-                            bikes:row,
-                            error:true,
-                            message:err1.message
-                        }) 
-                })} 
-                connection.query(bookingsql,(err,row,fields)=>{
+            connection.query(customersql,(err1,row)=>{
+                // if(err1) {} 
+                connection.query(bookingsql,(err,row)=>{
                     if(err) return res.send("booking query "+err.message);
                     res.render("reciept",{
                         name:req.body.cust_name,
@@ -69,7 +64,7 @@ app.post('/',(req,res)=>{
         })
     } catch (err) {
         console.log("ERR");
-        connection.query("select * from bikes",(err,row,fields)=>{
+        connection.query("select * from bikes",(err,row)=>{
             if(err) return res.send("err")
             res.render('booking-form',{
                 bikes:row,
@@ -85,11 +80,15 @@ app.get('/admin',(req,res)=>{
 
     connection.query("select * from bikes",(err,bikes)=>{
         connection.query("select * from customers",(err,cus)=>{
+            connection.query("select * from bookings",(err,bookings)=>{
 
-            res.render('admin',{
-                bikes,
-                customers:cus
+                res.render('admin',{
+                    bikes,
+                    customers:cus,
+                    bookings
+                })
             })
+
         })
     })
 })
@@ -109,6 +108,17 @@ app.post("/delete/:bike_no",(req,res)=>{
     connection.query("delete from bikes where bike_no = " + req.params.bike_no,(err,data)=>{
         res.redirect('/admin')
     })
+})
+
+app.post("/cancel/:booking_no",(req,res)=>{
+    try {
+        
+        connection.query("delete from bookings where booking_no = "+req.params.booking_no,(err,data)=>{
+            res.redirect('/admin');
+        })
+    } catch (err) {
+        res.redirect('/admin');
+    }
 })
 
 /*

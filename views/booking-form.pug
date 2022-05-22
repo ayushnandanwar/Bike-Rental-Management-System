@@ -40,10 +40,10 @@ html(lang="en")
                                 each bike in bikes 
                                     option(value=`${bike.bike_no}`)= `${bike.bike_name} (Rs.${bike.rent}/day) ${bike.color}`  
                     div
-                        label(for="from_date") From Date and Time
+                        label(for="from_date") From Date
                         input(type="date" name="from_date" onchange="updateToDate()" id="from_date" required) 
                     div
-                        label(for="to_date") To Date and Time
+                        label(for="to_date") To Date 
                         input(type="date" name="to_date" id="to_date" required) 
                     div
                         label(for="")

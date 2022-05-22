@@ -49,6 +49,30 @@ html(lang="en")
                             td= cus.name 
                             td= cus.mobile
                             td= cus.aadhar 
+            .container 
+                h1 Bookings
+                table 
+                    tr
+                        th Sr. No
+                        th Booking No
+                        th License No 
+                        th Bike Number 
+                        th From Date
+                        th To Date 
+                        th Fare 
+                        th Cancel Booking
+                    each booking,i in bookings 
+                        tr
+                            td=(i+1)
+                            td= booking.booking_no
+                            td= booking.license_no
+                            td= booking.bike_no 
+                            td= booking.from_date.toISOString().split("T")[0]
+                            td= booking.to_date.toISOString().split("T")[0]
+                            td= `${booking.fare}/-`
+                            td 
+                                form(action=`/cancel/${booking.booking_no}`, method="post") 
+                                    button(type="submit" class="btn btn-cancel") Cancel Booking
 
             div.container
                 h1 Add Bike
